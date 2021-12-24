@@ -1,2 +1,2 @@
 # Hobo.Ansible.Common
-Ansible role for basic host setup
+Ansible role for my personal basic host setup
