@@ -1,11 +1,4 @@
 ---
-- name: Ensure passwordless sudo
-  become: yes
-  lineinfile:
-    path: /etc/sudoers
-    regexp: '^%sudo.* +ALL=\(ALL(:ALL)?\) +(NOPASSWD: +)?ALL$'
-    line: "%sudo   ALL=(ALL) NOPASSWD: ALL"
-
 - name: Ensure time zone
   become: yes
   when: time_zone is defined
