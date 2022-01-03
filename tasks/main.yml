@@ -1,10 +1,4 @@
 ---
-- name: Ensure time zone
-  become: yes
-  when: time_zone is defined
-  timezone:
-    name: "{{ time_zone }}"
-
 - name: Ensure common components
   become: yes
   apt:
@@ -21,11 +15,18 @@
 
 - name: Ensure python3 is default interpreter
   become: yes
+  when: python3_default_interpreter|bool
   alternatives:
     name: python
     link: /usr/bin/python
     path: /usr/bin/python3
     priority: 1
+
+- name: Ensure time zone
+  become: yes
+  when: time_zone is defined
+  timezone:
+    name: "{{ time_zone }}"
 
 - name: Upgrade all packages to the latest version
   become: yes

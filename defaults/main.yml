@@ -1,3 +1,4 @@
 ---
-upgrade_software: false
-auto_upgrade: true
+upgrade_software: no
+auto_upgrade: no
+python3_default_interpreter: yes
