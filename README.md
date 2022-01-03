@@ -13,5 +13,6 @@ From inside your playbook roles directory:
 ## Variables
 | Name             | Type   | Required | Default | Desctiption |
 |------------------|--------|----------|---------|-------------|
+| time_zone        | string | No       |         | One of [these timezone database names](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) |
 | upgrade_software | bool   | No       | false   | Upgrade APT packages |
 | auto_upgrade     | bool   | No       | true    | Create an automatic `apt upgrade` cron job |
