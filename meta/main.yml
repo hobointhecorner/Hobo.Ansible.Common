@@ -1,0 +1,10 @@
+---
+galaxy_info:
+  role_name: hobo.ansible.common
+  author: hobointhecorner
+  description: Example of common settings I set per-machine
+  license: MPL-2.0
+
+  galaxy_tags: []
+
+dependencies: []
