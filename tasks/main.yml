@@ -1,16 +1,4 @@
 ---
-- name: Ensure passwordless sudo
-  become: yes
-  lineinfile:
-    path: /etc/sudoers
-    regexp: '^%sudo.* +ALL=\(ALL(:ALL)?\) +(NOPASSWD: +)?ALL$'
-    line: "%sudo   ALL=(ALL) NOPASSWD: ALL"
-
-- name: Ensure time zone
-  become: yes
-  timezone:
-    name: America/Chicago
-
 - name: Ensure common components
   become: yes
   apt:
@@ -27,24 +15,31 @@
 
 - name: Ensure python3 is default interpreter
   become: yes
+  when: python3_default_interpreter|bool
   alternatives:
     name: python
     link: /usr/bin/python
     path: /usr/bin/python3
     priority: 1
 
+- name: Ensure time zone
+  become: yes
+  when: time_zone is defined
+  timezone:
+    name: "{{ time_zone }}"
+
 - name: Upgrade all packages to the latest version
   become: yes
+  when: upgrade_software|bool
   apt:
     name: "*"
     state: latest
-  when: upgrade_software
 
 - name: Ensure auto-update cron job
   become: yes
+  when: auto_upgrade|bool
   cron:
     name: auto update
     hour: "4"
     minute: "0"
     job: sudo -s eval 'apt update && apt upgrade -y && reboot'
-  when: auto_upgrade
