@@ -18,7 +18,7 @@
     path: /usr/bin/python3
     priority: 1
 
-- when: lower(ansible_distribution) == "ubuntu"
+- when: ansible_distribution|lower == "ubuntu"
   tags:
     - common
   include_tasks: ubuntu.yml
