@@ -1,4 +1,17 @@
 ---
+- name: Ensure apt updated
+  become: yes
+  tags:
+    - common
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+    autoclean: yes
+    autoremove: yes
+  register: apt_action
+  retries: 100
+  until: apt_action is success or ('Failed to lock apt for exclusive operation' not in apt_action.msg and '/var/lib/dpkg/lock' not in apt_action.msg)
+
 - name: Ensure common components
   become: yes
   tags:
@@ -9,10 +22,6 @@
       - python3-pip
       - unzip
       - ntp
-    update_cache: yes
-    cache_valid_time: 3600
-    autoclean: yes
-    autoremove: yes
   register: apt_action
   retries: 100
   until: apt_action is success or ('Failed to lock apt for exclusive operation' not in apt_action.msg and '/var/lib/dpkg/lock' not in apt_action.msg)
