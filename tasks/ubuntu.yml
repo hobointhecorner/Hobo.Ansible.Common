@@ -37,11 +37,16 @@
 
 - name: Ensure auto-update cron job
   become: yes
-  when: auto_upgrade|bool
   tags:
     - common
   cron:
     name: auto update
     hour: "4"
     minute: "0"
-    job: sudo -s eval 'apt update && apt upgrade -y && reboot'
+    job: sudo -s eval 'apt update && apt upgrade -y'
+    state: >-
+      {%- if auto_upgrade|bool -%}
+      present
+      {%- else -%}
+      absent
+      {%- endif -%}
