@@ -1,6 +1,6 @@
 ---
 - name: Ensure time zone
-  become: yes
+  become: true
   when: time_zone is defined
   tags:
     - common
@@ -8,7 +8,7 @@
     name: "{{ time_zone }}"
 
 - name: Ensure python3 is default interpreter
-  become: yes
+  become: true
   when: python3_default_interpreter|bool
   tags:
     - common
@@ -18,7 +18,7 @@
     path: /usr/bin/python3
     priority: 1
 
-- when: ansible_distribution|lower == "ubuntu"
+- when: ansible_os_family | lower == "debian"
   tags:
     - common
-  include_tasks: ubuntu.yml
+  include_tasks: debian.yml

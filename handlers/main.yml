@@ -1,7 +1,7 @@
 ---
 - name: Enable ntp service
-  become: yes
+  become: true
   systemd:
     name: ntp
-    enabled: yes
+    enabled: true
     state: started
